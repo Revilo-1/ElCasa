@@ -1,4 +1,9 @@
-import { Area, BudgetPost, Person, Project, Task } from "./types";
+import { Area, BudgetPost, Income, Person, Project, Task } from "./types";
+
+// Den samlede budgetramme for hele projektet, sat over flere år.
+// Justér dette tal til jeres faktiske ramme - det er bevidst ikke afledt
+// af noget andet, så det er let at ændre ét sted.
+export const totalBudget = 350_000;
 
 // --- Delprojekter (de 7 indsatsområder fra projektinstruksen) ---
 export const projects: Project[] = [
@@ -63,6 +68,7 @@ export const tasks: Task[] = [
     type: "uafklaret",
     prioritet: "normal",
     ansvarlig: "oliver",
+    deadline: "2026-08-15",
     budgetPostId: "b1",
   },
   {
@@ -112,7 +118,8 @@ export const tasks: Task[] = [
     beskrivelse: "Ingen rapport indhentet endnu – godt fundament for resten af projektet.",
     status: "ikke-startet",
     type: "haandvaerker",
-    prioritet: "normal",
+    prioritet: "akut",
+    deadline: "2026-08-20",
   },
   {
     id: "t7",
@@ -142,5 +149,16 @@ export const budgetPosts: BudgetPost[] = [
     navn: "Plænepleje (kalk, gødning, eftersåning)",
     estimatDiy: 1200,
     status: "estimat",
+  },
+];
+
+// --- Indtægter/refusioner ind i projektet (valgfrit at bruge) ---
+export const incomes: Income[] = [
+  {
+    id: "i1",
+    navn: "Salg af gammelt komfur",
+    beloeb: 800,
+    dato: "2026-07-20",
+    note: "Solgt via DBA i forbindelse med køkkenplanlægning.",
   },
 ];

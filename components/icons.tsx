@@ -69,6 +69,47 @@ export function IconPlan() {
   );
 }
 
+export function IconWallet() {
+  return (
+    <svg {...common}>
+      <path d="M3 7a2 2 0 012-2h13a1 1 0 011 1v3M3 7v11a2 2 0 002 2h14a2 2 0 002-2v-8a1 1 0 00-1-1h-5a2 2 0 100 4h5" />
+    </svg>
+  );
+}
+
+export function IconTrendDown() {
+  return (
+    <svg {...common}>
+      <path d="M3 6l7 7 4-4 7 7M15 16h6v-6" />
+    </svg>
+  );
+}
+
+export function IconTrendUp() {
+  return (
+    <svg {...common}>
+      <path d="M3 17l7-7 4 4 7-7M15 7h6v6" />
+    </svg>
+  );
+}
+
+export function IconPiggy() {
+  return (
+    <svg {...common}>
+      <path d="M4 12a5 5 0 015-5h6a5 5 0 015 5v1h2l-1 2h-1v1a2 2 0 01-2 2h-1v2h-2v-2H9v2H7v-2a5 5 0 01-3-4.5V12z" />
+      <circle cx="9" cy="11" r="0.5" fill="currentColor" />
+    </svg>
+  );
+}
+
+export function IconHash() {
+  return (
+    <svg {...common}>
+      <path d="M5 9h14M5 15h14M10 4L8 20M16 4l-2 16" />
+    </svg>
+  );
+}
+
 export const iconMap = {
   koekken: IconKoekken,
   bad: IconBad,

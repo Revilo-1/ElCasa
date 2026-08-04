@@ -54,3 +54,13 @@ export interface BudgetPost {
   status: "estimat" | "bestilt" | "betalt";
   note?: string;
 }
+
+// Penge der kommer IND i projektet - fx forsikringsudbetaling eller salg af
+// gamle hvidevarer/inventar i forbindelse med en renovering.
+export interface Income {
+  id: string;
+  navn: string;
+  beloeb: number; // kr.
+  dato?: string; // ISO-dato
+  note?: string;
+}

@@ -13,7 +13,22 @@ export default function Sidebar() {
           </h1>
         </Link>
       </div>
-      <nav className="flex flex-row gap-1 overflow-x-auto px-3 pb-4 md:flex-col md:overflow-visible md:px-3">
+      <nav className="flex flex-row gap-1 overflow-x-auto px-3 pb-2 md:flex-col md:overflow-visible md:px-3">
+        <Link
+          href="/"
+          className="flex shrink-0 items-center rounded-md px-3 py-2.5 text-sm font-medium text-ink/80 transition-colors hover:bg-stone/40 hover:text-ink"
+        >
+          Overblik
+        </Link>
+        <Link
+          href="/budget"
+          className="flex shrink-0 items-center rounded-md px-3 py-2.5 text-sm font-medium text-ink/80 transition-colors hover:bg-stone/40 hover:text-ink"
+        >
+          Budget
+        </Link>
+      </nav>
+      <div className="mx-3 hidden border-t border-stone/70 md:block" />
+      <nav className="flex flex-row gap-1 overflow-x-auto px-3 pb-4 pt-2 md:flex-col md:overflow-visible md:px-3">
         {projects.map((project) => {
           const Icon = iconMap[project.ikon];
           return (

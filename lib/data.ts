@@ -13,8 +13,15 @@
 //     return data;
 //   }
 
-import { budgetPosts, people, projects, tasks } from "./mock-data";
-import { Area, BudgetPost, Person, Project, Task } from "./types";
+import {
+  budgetPosts,
+  incomes,
+  people,
+  projects,
+  tasks,
+  totalBudget,
+} from "./mock-data";
+import { Area, BudgetPost, Income, Person, Project, Task } from "./types";
 
 export async function getProjects(): Promise<Project[]> {
   return projects;
@@ -38,6 +45,14 @@ export async function getPeople(): Promise<Person[]> {
   return people;
 }
 
+export async function getIncomes(): Promise<Income[]> {
+  return incomes;
+}
+
+export async function getTotalBudget(): Promise<number> {
+  return totalBudget;
+}
+
 // --- Afledte tal, som UI'en bruger til overbliksvisningen ---
 
 export function summarizeBudget(posts: BudgetPost[]) {
@@ -59,4 +74,49 @@ export function summarizeTasks(taskList: Task[]) {
   const iGang = taskList.filter((t) => t.status === "i-gang").length;
   const procent = total === 0 ? 0 : Math.round((afsluttet / total) * 100);
   return { total, afsluttet, iGang, procent };
+}
+
+// Til "Budget Oversigt"-siden: nøgletal på tværs af hele projektet.
+export function summarizeBudgetOverview(
+  posts: BudgetPost[],
+  budgetRamme: number
+) {
+  const estimeredeUdgifter = posts.reduce(
+    (sum, p) => sum + (p.estimatDiy ?? p.estimatHaandvaerker ?? 0),
+    0
+  );
+  const tilbage = budgetRamme - estimeredeUdgifter;
+  const procentBrugt =
+    budgetRamme === 0 ? 0 : Math.round((estimeredeUdgifter / budgetRamme) * 100);
+  return {
+    budgetRamme,
+    estimeredeUdgifter,
+    tilbage,
+    procentBrugt,
+    antalPoster: posts.length,
+  };
+}
+
+// Til opgave-widget'en: hvad kræver opmærksomhed lige nu, på tværs af rum.
+export function summarizeTasksOverview(taskList: Task[]) {
+  const idag = new Date();
+  const totrekUger = new Date();
+  totrekUger.setDate(idag.getDate() + 14);
+
+  const akutte = taskList.filter(
+    (t) => t.prioritet === "akut" && t.status !== "afsluttet"
+  );
+  const iGang = taskList.filter((t) => t.status === "i-gang");
+  const snartDeadline = taskList.filter((t) => {
+    if (!t.deadline || t.status === "afsluttet") return false;
+    const d = new Date(t.deadline);
+    return d >= idag && d <= totrekUger;
+  });
+
+  // De mest presserende opgaver samlet - til en kort liste i widget'en
+  const prioriteret = [...akutte, ...snartDeadline, ...iGang]
+    .filter((t, i, arr) => arr.findIndex((x) => x.id === t.id) === i)
+    .slice(0, 5);
+
+  return { akutte, iGang, snartDeadline, prioriteret };
 }
