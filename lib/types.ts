@@ -37,7 +37,7 @@ export interface Task {
   status: TaskStatus;
   type: TaskType;
   prioritet: TaskPriority;
-  ansvarlig?: string; // Person.id
+  ansvarlige: string[]; // Person.id-array, tom array = ingen tildelt
   deadline?: string; // ISO-dato, valgfri
   boernesikkerhed?: boolean; // flag hvis relevant iht. projektinstruksen
   // Kobling til budgetlinjer for denne opgave

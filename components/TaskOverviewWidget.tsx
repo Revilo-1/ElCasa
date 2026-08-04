@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { Task } from "@/lib/types";
 import { StatusBadge, PriorityDot } from "./Badges";
-import { projects } from "@/lib/mock-data";
+import { projects, people } from "@/lib/mock-data";
+import AvatarStack from "./AvatarStack";
 
 function formatDeadline(iso?: string) {
   if (!iso) return null;
@@ -47,6 +48,10 @@ export default function TaskOverviewWidget({
         <ul className="divide-y divide-stone/50">
           {prioriteret.map((task) => {
             const project = projects.find((p) => p.slug === task.projectSlug);
+            const assignedPeople = people.filter((person) =>
+              task.ansvarlige.includes(person.id),
+            );
+
             return (
               <li key={task.id} className="flex items-center gap-3 py-2.5">
                 <PriorityDot priority={task.prioritet} />
@@ -61,6 +66,7 @@ export default function TaskOverviewWidget({
                     {project?.navn}
                   </Link>
                 </div>
+                <AvatarStack people={assignedPeople} />
                 {task.deadline && (
                   <span className="shrink-0 font-mono text-xs text-ink/50">
                     {formatDeadline(task.deadline)}

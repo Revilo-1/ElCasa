@@ -54,6 +54,7 @@ export const projects: Project[] = [
 // --- Personer (tilpas til de faktiske involverede) ---
 export const people: Person[] = [
   { id: "oliver", navn: "Oliver", initialer: "OL" },
+  { id: "person2", navn: "Partner", initialer: "PP" },
 ];
 
 // --- Opgaver, sat med udgangspunkt i det, der allerede er drøftet ---
@@ -67,7 +68,7 @@ export const tasks: Task[] = [
     status: "i-gang",
     type: "uafklaret",
     prioritet: "normal",
-    ansvarlig: "oliver",
+    ansvarlige: ["oliver", "person2"],
     deadline: "2026-08-15",
     budgetPostId: "b1",
   },
@@ -79,7 +80,7 @@ export const tasks: Task[] = [
     status: "ikke-startet",
     type: "diy",
     prioritet: "normal",
-    ansvarlig: "oliver",
+    ansvarlige: ["oliver"],
     budgetPostId: "b1",
   },
   {
@@ -91,6 +92,7 @@ export const tasks: Task[] = [
     status: "ikke-startet",
     type: "uafklaret",
     prioritet: "normal",
+    ansvarlige: ["oliver"],
   },
   {
     id: "t4",
@@ -99,6 +101,7 @@ export const tasks: Task[] = [
     status: "ikke-startet",
     type: "diy",
     prioritet: "normal",
+    ansvarlige: ["person2"],
     budgetPostId: "b2",
   },
   {
@@ -110,25 +113,30 @@ export const tasks: Task[] = [
     status: "ikke-startet",
     type: "uafklaret",
     prioritet: "normal",
+    ansvarlige: ["person2"],
   },
   {
     id: "t6",
     projectSlug: "energi",
     titel: "Indhent tilstandsrapport / byggesagkyndig vurdering",
-    beskrivelse: "Ingen rapport indhentet endnu – godt fundament for resten af projektet.",
+    beskrivelse:
+      "Ingen rapport indhentet endnu – godt fundament for resten af projektet.",
     status: "ikke-startet",
     type: "haandvaerker",
     prioritet: "akut",
+    ansvarlige: [],
     deadline: "2026-08-20",
   },
   {
     id: "t7",
     projectSlug: "koekken",
     titel: "Vælg overordnet stilretning for huset",
-    beskrivelse: "Klassisk, moderne eller skandinavisk – afklares før større valg.",
+    beskrivelse:
+      "Klassisk, moderne eller skandinavisk – afklares før større valg.",
     status: "ikke-startet",
     type: "uafklaret",
     prioritet: "normal",
+    ansvarlige: ["oliver", "person2"],
   },
 ];
 

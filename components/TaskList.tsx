@@ -1,5 +1,6 @@
 import { Task, Person } from "@/lib/types";
 import { StatusBadge, TypeBadge, PriorityDot, ChildSafetyFlag } from "./Badges";
+import AvatarStack from "./AvatarStack";
 
 export default function TaskList({
   tasks,
@@ -20,7 +21,10 @@ export default function TaskList({
   return (
     <ul className="divide-y divide-stone/60 rounded-lg border border-stone/70">
       {tasks.map((task) => {
-        const person = people.find((p) => p.id === task.ansvarlig);
+        const assignedPeople = people.filter((person) =>
+          task.ansvarlige.includes(person.id),
+        );
+
         return (
           <li
             key={task.id}
@@ -41,14 +45,7 @@ export default function TaskList({
               {task.boernesikkerhed && <ChildSafetyFlag />}
               <TypeBadge type={task.type} />
               <StatusBadge status={task.status} />
-              {person && (
-                <span
-                  title={person.navn}
-                  className="flex h-6 w-6 items-center justify-center rounded-full bg-pine/20 font-mono text-[10px] font-medium text-ink/70"
-                >
-                  {person.initialer}
-                </span>
-              )}
+              <AvatarStack people={assignedPeople} />
             </div>
           </li>
         );

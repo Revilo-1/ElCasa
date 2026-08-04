@@ -1,3 +1,4 @@
+import Link from "next/link";
 import {
   getBudgetPosts,
   getIncomes,
@@ -85,17 +86,33 @@ export default async function BudgetPage() {
       </section>
 
       <section className="mb-10">
-        <h3 className="mb-4 font-display text-lg font-semibold text-ink">
-          Alle budgetposter
-        </h3>
+        <div className="mb-4 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+          <h3 className="font-display text-lg font-semibold text-ink">
+            Alle budgetposter
+          </h3>
+          <Link
+            href="/budget/udgifter"
+            className="inline-flex w-fit items-center rounded-md border border-stone/70 bg-white/40 px-3 py-2 text-sm font-medium text-ink/80 transition-colors hover:bg-stone/40"
+          >
+            Se alle udgifter
+          </Link>
+        </div>
         <BudgetLedger posts={posts} projects={projects} />
       </section>
 
       {incomes.length > 0 && (
         <section>
-          <h3 className="mb-4 font-display text-lg font-semibold text-ink">
-            Indtægter og refusioner
-          </h3>
+          <div className="mb-4 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+            <h3 className="font-display text-lg font-semibold text-ink">
+              Indtægter og refusioner
+            </h3>
+            <Link
+              href="/budget/indtaegter"
+              className="inline-flex w-fit items-center rounded-md border border-stone/70 bg-white/40 px-3 py-2 text-sm font-medium text-ink/80 transition-colors hover:bg-stone/40"
+            >
+              Se alle indtægter
+            </Link>
+          </div>
           <IncomeLedger incomes={incomes} />
         </section>
       )}
