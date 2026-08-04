@@ -1,0 +1,37 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  background-color: #faf7f2;
+  color: #2b2620;
+}
+
+/* Signaturelement: en arkitekttegnings mål-streg under sidetitler.
+   Bruges bevidst få steder, ikke som generel dekoration. */
+.dimension-line {
+  position: relative;
+  display: inline-block;
+}
+.dimension-line::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -8px;
+  height: 1px;
+  background-image: linear-gradient(
+    to right,
+    #b5502e 0,
+    #b5502e 6px,
+    transparent 6px,
+    transparent 10px
+  );
+  background-size: 10px 1px;
+  background-repeat: repeat-x;
+}
+
+::selection {
+  background: #b5502e;
+  color: #faf7f2;
+}
