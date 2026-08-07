@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Fraunces, Inter, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
-import Sidebar from "@/components/Sidebar";
+import AppShell from "@/components/AppShell";
 
 const fraunces = Fraunces({
   subsets: ["latin"],
@@ -40,12 +40,7 @@ export default function RootLayout({
       <body
         className={`${fraunces.variable} ${inter.variable} ${plexMono.variable} font-body`}
       >
-        <div className="flex min-h-screen flex-col md:flex-row">
-          <Sidebar />
-          <main className="flex-1 px-4 py-6 sm:px-5 sm:py-8 md:px-10 md:py-10">
-            {children}
-          </main>
-        </div>
+        <AppShell>{children}</AppShell>
       </body>
     </html>
   );

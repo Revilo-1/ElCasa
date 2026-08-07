@@ -27,3 +27,15 @@ export function createSupabaseServerClient() {
     },
   });
 }
+
+export function createSupabaseBrowserClient() {
+  const { url, anonKey } = getSupabaseConfig();
+
+  if (!url || !anonKey) {
+    throw new Error(
+      "Supabase env-vars mangler. Sæt NEXT_PUBLIC_SUPABASE_URL og NEXT_PUBLIC_SUPABASE_ANON_KEY.",
+    );
+  }
+
+  return createClient(url, anonKey);
+}
