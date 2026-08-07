@@ -22,6 +22,16 @@ import {
   totalBudget,
 } from "./mock-data";
 import { Area, BudgetPost, Income, Person, Project, Task } from "./types";
+import { createSupabaseServerClient, hasSupabaseEnv } from "./supabase";
+import { unstable_noStore as noStore } from "next/cache";
+
+type IncomeRow = {
+  id: string;
+  navn: string;
+  beloeb: number;
+  dato: string | null;
+  note: string | null;
+};
 
 export async function getProjects(): Promise<Project[]> {
   return projects;
@@ -46,7 +56,69 @@ export async function getPeople(): Promise<Person[]> {
 }
 
 export async function getIncomes(): Promise<Income[]> {
-  return incomes;
+  noStore();
+
+  if (!hasSupabaseEnv()) {
+    return incomes;
+  }
+
+  try {
+    const supabase = createSupabaseServerClient();
+    const { data, error } = await supabase
+      .from("incomes")
+      .select("id, navn, beloeb, dato, note")
+      .order("dato", { ascending: false, nullsFirst: false });
+
+    if (error) {
+      console.error("Kunne ikke hente indtægter fra Supabase:", error.message);
+      return incomes;
+    }
+
+    return (data as IncomeRow[]).map((row) => ({
+      id: row.id,
+      navn: row.navn,
+      beloeb: row.beloeb,
+      dato: row.dato ?? undefined,
+      note: row.note ?? undefined,
+    }));
+  } catch (error) {
+    console.error("Uventet fejl ved hentning af indtægter:", error);
+    return incomes;
+  }
+}
+
+export async function addIncome(input: {
+  navn: string;
+  beloeb: number;
+  dato?: string;
+  note?: string;
+}) {
+  if (!hasSupabaseEnv()) {
+    throw new Error("Supabase er ikke konfigureret endnu.");
+  }
+
+  const navn = input.navn.trim();
+  const note = input.note?.trim();
+
+  if (!navn) {
+    throw new Error("Navn er påkrævet.");
+  }
+
+  if (!Number.isFinite(input.beloeb) || input.beloeb < 0) {
+    throw new Error("Beløb skal være et gyldigt tal.");
+  }
+
+  const supabase = createSupabaseServerClient();
+  const { error } = await supabase.from("incomes").insert({
+    navn,
+    beloeb: Math.round(input.beloeb),
+    dato: input.dato || null,
+    note: note || null,
+  });
+
+  if (error) {
+    throw new Error(`Kunne ikke gemme indtægt: ${error.message}`);
+  }
 }
 
 export async function getTotalBudget(): Promise<number> {
@@ -58,11 +130,11 @@ export async function getTotalBudget(): Promise<number> {
 export function summarizeBudget(posts: BudgetPost[]) {
   const estimatLavt = posts.reduce(
     (sum, p) => sum + (p.estimatDiy ?? p.estimatHaandvaerker ?? 0),
-    0
+    0,
   );
   const estimatHoejt = posts.reduce(
     (sum, p) => sum + (p.estimatHaandvaerker ?? p.estimatDiy ?? 0),
-    0
+    0,
   );
   const faktisk = posts.reduce((sum, p) => sum + (p.faktiskPris ?? 0), 0);
   return { estimatLavt, estimatHoejt, faktisk };
@@ -79,15 +151,17 @@ export function summarizeTasks(taskList: Task[]) {
 // Til "Budget Oversigt"-siden: nøgletal på tværs af hele projektet.
 export function summarizeBudgetOverview(
   posts: BudgetPost[],
-  budgetRamme: number
+  budgetRamme: number,
 ) {
   const estimeredeUdgifter = posts.reduce(
     (sum, p) => sum + (p.estimatDiy ?? p.estimatHaandvaerker ?? 0),
-    0
+    0,
   );
   const tilbage = budgetRamme - estimeredeUdgifter;
   const procentBrugt =
-    budgetRamme === 0 ? 0 : Math.round((estimeredeUdgifter / budgetRamme) * 100);
+    budgetRamme === 0
+      ? 0
+      : Math.round((estimeredeUdgifter / budgetRamme) * 100);
   return {
     budgetRamme,
     estimeredeUdgifter,
@@ -104,7 +178,7 @@ export function summarizeTasksOverview(taskList: Task[]) {
   totrekUger.setDate(idag.getDate() + 14);
 
   const akutte = taskList.filter(
-    (t) => t.prioritet === "akut" && t.status !== "afsluttet"
+    (t) => t.prioritet === "akut" && t.status !== "afsluttet",
   );
   const iGang = taskList.filter((t) => t.status === "i-gang");
   const snartDeadline = taskList.filter((t) => {
