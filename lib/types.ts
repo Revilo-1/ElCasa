@@ -27,6 +27,7 @@ export interface Person {
   id: string;
   navn: string;
   initialer: string;
+  foto?: string; // Sti til profilbillede i /public, fx "/oliver.jpg"
 }
 
 export interface Task {
@@ -34,6 +35,7 @@ export interface Task {
   projectSlug: Area;
   titel: string;
   beskrivelse?: string;
+  noteHtml?: string; // Rich-text note som HTML-streng
   status: TaskStatus;
   type: TaskType;
   prioritet: TaskPriority;

@@ -53,8 +53,8 @@ export const projects: Project[] = [
 
 // --- Personer (tilpas til de faktiske involverede) ---
 export const people: Person[] = [
-  { id: "oliver", navn: "Oliver", initialer: "OL" },
-  { id: "person2", navn: "Partner", initialer: "PP" },
+  { id: "oliver", navn: "Oliver", initialer: "OL", foto: "/oliver.jpg" },
+  { id: "person2", navn: "Maria", initialer: "MA", foto: "/maria.jpg" },
 ];
 
 // --- Opgaver, sat med udgangspunkt i det, der allerede er drøftet ---
