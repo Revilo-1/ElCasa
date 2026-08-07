@@ -45,7 +45,7 @@ export default async function BudgetPage() {
         </p>
       </div>
 
-      <div className="mb-10 grid grid-cols-2 gap-4 sm:grid-cols-4">
+      <div className="mb-10 grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-4">
         <StatCard
           label="byggebudget"
           value={`${budgetRamme.toLocaleString("da-DK")} kr.`}
@@ -111,7 +111,7 @@ export default async function BudgetPage() {
                 Se alle indtægter
               </Link>
               <Link
-                href="/budget/indtaegter"
+                href="/budget/indtaegter/ny"
                 className="inline-flex items-center rounded-md border border-stone/70 bg-white/40 px-3 py-2 text-sm font-medium text-ink/80 transition-colors hover:bg-stone/40"
               >
                 tilføj indtægt
