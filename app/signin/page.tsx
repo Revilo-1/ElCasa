@@ -107,7 +107,6 @@ export default function SignInPage() {
                   {loading ? "Logger ind..." : "Log ind"}
                 </button>
               </form>
-
             </div>
           </div>
         </section>
