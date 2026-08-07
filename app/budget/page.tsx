@@ -37,9 +37,6 @@ export default async function BudgetPage() {
   return (
     <div className="mx-auto max-w-5xl">
       <div className="mb-10">
-        <p className="font-mono text-xs uppercase tracking-wider text-terracotta">
-          Grundplan
-        </p>
         <h2 className="dimension-line mt-1 inline-block pb-2 font-display text-3xl font-semibold text-ink">
           Budget
         </h2>
@@ -50,7 +47,7 @@ export default async function BudgetPage() {
 
       <div className="mb-10 grid grid-cols-2 gap-4 sm:grid-cols-4">
         <StatCard
-          label="Budgetramme"
+          label="byggebudget"
           value={`${budgetRamme.toLocaleString("da-DK")} kr.`}
           variant="solid-ink"
         />
@@ -104,14 +101,22 @@ export default async function BudgetPage() {
         <section>
           <div className="mb-4 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
             <h3 className="font-display text-lg font-semibold text-ink">
-              Indtægter og refusioner
+              Mulige tilføjelser til byggebudget
             </h3>
-            <Link
-              href="/budget/indtaegter"
-              className="inline-flex w-fit items-center rounded-md border border-stone/70 bg-white/40 px-3 py-2 text-sm font-medium text-ink/80 transition-colors hover:bg-stone/40"
-            >
-              Se alle indtægter
-            </Link>
+            <div className="flex w-fit items-center gap-2">
+              <Link
+                href="/budget/indtaegter"
+                className="inline-flex items-center rounded-md border border-stone/70 bg-white/40 px-3 py-2 text-sm font-medium text-ink/80 transition-colors hover:bg-stone/40"
+              >
+                Se alle indtægter
+              </Link>
+              <Link
+                href="/budget/indtaegter"
+                className="inline-flex items-center rounded-md border border-stone/70 bg-white/40 px-3 py-2 text-sm font-medium text-ink/80 transition-colors hover:bg-stone/40"
+              >
+                tilføj indtægt
+              </Link>
+            </div>
           </div>
           <IncomeLedger incomes={incomes} />
         </section>

@@ -30,7 +30,7 @@ export default function Sidebar() {
           href="/tasks"
           className="flex shrink-0 items-center rounded-md px-3 py-2.5 text-sm font-medium text-ink/80 transition-colors hover:bg-stone/40 hover:text-ink"
         >
-          Task-bræt
+          To Do
         </Link>
       </nav>
       <div className="mx-3 hidden border-t border-stone/70 md:block" />

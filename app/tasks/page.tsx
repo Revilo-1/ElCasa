@@ -769,11 +769,8 @@ export default function TasksPage() {
         {/* Header */}
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div>
-            <p className="font-mono text-xs uppercase tracking-wider text-terracotta">
-              Husrenovering
-            </p>
             <h1 className="font-display text-3xl font-semibold text-ink">
-              Opgaver
+              To Do
             </h1>
           </div>
 
@@ -971,7 +968,7 @@ export default function TasksPage() {
                 >
                   <path d="M2 4.5A2.5 2.5 0 0 1 4.5 2H7a2.5 2.5 0 0 1 2.5 2.5V7A2.5 2.5 0 0 1 7 9.5H4.5A2.5 2.5 0 0 1 2 7V4.5ZM2 13a2.5 2.5 0 0 1 2.5-2.5H7A2.5 2.5 0 0 1 9.5 13v2.5A2.5 2.5 0 0 1 7 18H4.5A2.5 2.5 0 0 1 2 15.5V13ZM10.5 4.5A2.5 2.5 0 0 1 13 2h2.5A2.5 2.5 0 0 1 18 4.5V7a2.5 2.5 0 0 1-2.5 2.5H13A2.5 2.5 0 0 1 10.5 7V4.5ZM10.5 13a2.5 2.5 0 0 1 2.5-2.5h2.5A2.5 2.5 0 0 1 18 13v2.5A2.5 2.5 0 0 1 15.5 18H13a2.5 2.5 0 0 1-2.5-2.5V13Z" />
                 </svg>
-                Bræt
+                Kanban
               </button>
               <button
                 type="button"
